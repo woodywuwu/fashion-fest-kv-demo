@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>TikTok for Business — Fashion Fest 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html, body {
+  color:#fff;
+  font-family:'Inter', 'Space Grotesk', sans-serif;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* Body bg: soft vignette + dopamine ambient bleed from edges */
+body {
+  background:
+    /* left edge purple ambient (deepest at far left, fades to center) */
+    linear-gradient(90deg,
+      rgba(157,78,221,.18) 0%,
+      rgba(157,78,221,.08) 15%,
+      transparent 40%
+    ),
+    /* right edge pink ambient (deepest at far right, fades to center) */
+    linear-gradient(-90deg,
+      rgba(255,62,165,.18) 0%,
+      rgba(255,62,165,.08) 15%,
+      transparent 40%
+    ),
+    /* base vignette: center slightly brighter than corners */
+    radial-gradient(ellipse 100% 80% at 50% 35%,
+      #160622 0%,
+      #0a0210 60%,
+      #000 100%
+    );
+  background-attachment: fixed;
+  min-height:100vh;
+}
+
+/* Soft inner glow at very edges that "bleeds" toward the page */
+body::before, body::after {
+  content:'';
+  position:fixed;
+  top:0; bottom:0;
+  width:20vw;
+  pointer-events:none;
+  z-index:0;
+}
+body::before {
+  left:0;
+  background: radial-gradient(ellipse at left center,
+    rgba(157,78,221,.14) 0%,
+    rgba(157,78,221,.04) 40%,
+    transparent 70%
+  );
+}
+body::after {
+  right:0;
+  background: radial-gradient(ellipse at right center,
+    rgba(255,62,165,.14) 0%,
+    rgba(255,62,165,.04) 40%,
+    transparent 70%
+  );
+}
+
+a { color:inherit; text-decoration:none; }
+
+::selection { background:#FF3EA5; color:#fff; }
+
+.page {
+  width:100%;
+  max-width:1536px;
+  margin:0 auto;
+  position:relative;
+  z-index:1;
+  padding-bottom:60px;
+}
+
+/* ============ FADE-IN UTILITY ============ */
+.reveal {
+  opacity:0;
+  transform:translateY(20px);
+  animation: revealUp 1.1s cubic-bezier(.16,.84,.34,1) forwards;
+}
+.reveal.d1 { animation-delay:.1s; }
+.reveal.d2 { animation-delay:.25s; }
+.reveal.d3 { animation-delay:.4s; }
+.reveal.d4 { animation-delay:.55s; }
+.reveal.d5 { animation-delay:.7s; }
+@keyframes revealUp {
+  to { opacity:1; transform:translateY(0); }
+}
+
+/* ============ HEADER ============ */
+.header {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:32px 48px;
+  position:relative;
+  z-index:100;
+}
+.header-left {
+  display:flex;
+  align-items:flex-end;
+  gap:16px;
+}
+.tt-logo {
+  width:36px; height:36px;
+  display:flex; align-items:center; justify-content:center;
+}
+.brand-text { line-height:1.05; }
+.brand-text .row1 {
+  font-family:'Inter',sans-serif;
+  font-weight:600;
+  font-size:16px;
+  letter-spacing:-.01em;
+}
+.brand-text .row1 .light { font-weight:300; opacity:.7; }
+.brand-text .row2 {
+  font-family:'Anton',sans-serif;
+  font-size:26px;
+  letter-spacing:.005em;
+  margin-top:6px;
+}
+
+.nav {
+  display:flex;
+  gap:44px;
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+}
+.nav a {
+  font-family:'Inter',sans-serif;
+  font-weight:500;
+  font-size:13px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.7);
+  padding:8px 0;
+  position:relative;
+  transition:color .25s;
+}
+.nav a:hover { color:#fff; }
+.nav a.active { color:#fff; }
+.nav a.active::after {
+  content:'';
+  position:absolute;
+  bottom:-2px; left:0; right:0;
+  height:1px;
+  background:linear-gradient(90deg,#FF3EA5,#4CD7D0);
+}
+
+.header-right {
+  display:flex;
+  align-items:center;
+  gap:20px;
+}
+.btn-login {
+  padding:11px 26px;
+  border:1px solid rgba(255,255,255,.3);
+  border-radius:999px;
+  font-family:'Inter',sans-serif;
+  font-weight:600;
+  font-size:13px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  cursor:pointer;
+  background:transparent;
+  color:#fff;
+  transition:all .3s;
+}
+.btn-login:hover {
+  background:#fff;
+  color:#000;
+  border-color:#fff;
+}
+.menu-btn {
+  width:36px; height:36px;
+  display:flex; flex-direction:column;
+  justify-content:center; align-items:center;
+  gap:5px;
+  cursor:pointer;
+}
+.menu-btn span {
+  width:22px; height:1.5px; background:#fff;
+  transition: transform .3s, opacity .3s;
+}
+.menu-btn:hover span:nth-child(1) { transform:translateY(2px) rotate(45deg); }
+.menu-btn:hover span:nth-child(2) { opacity:0; }
+.menu-btn:hover span:nth-child(3) { transform:translateY(-2px) rotate(-45deg); }
+
+/* ============ HERO ============ */
+.hero {
+  position:relative;
+  display:grid;
+  grid-template-columns: 420px 1fr 320px;
+  gap:0;
+  padding:40px 48px 60px;
+  min-height:780px;
+}
+
+/* === FULL-WIDTH KV BACKDROP === */
+.hero-bg-wrap {
+  position:absolute;
+  inset:0;
+  z-index:0;
+  overflow:hidden;
+  border-radius:0;
+}
+.hero-bg-wrap .kv-inner {
+  position:absolute;
+  inset:0;
+  transition: transform .15s ease-out;
+  will-change: transform;
+}
+
+/* === LEFT COLUMN === */
+.hero-left {
+  position:relative;
+  z-index:3;
+  display:flex;
+  flex-direction:column;
+  padding-top:12px;
+  padding-right:40px;
+}
+/* Soft fade overlay behind left content — dark at far left → transparent toward KV */
+.hero-left::before {
+  content:'';
+  position:absolute;
+  top:-40px; bottom:-60px;
+  left:-200px; right:-80px;
+  background: linear-gradient(90deg,
+    rgba(8,2,18,.92) 0%,
+    rgba(8,2,18,.78) 30%,
+    rgba(8,2,18,.55) 55%,
+    rgba(8,2,18,.25) 75%,
+    transparent 100%
+  );
+  z-index:-1;
+  pointer-events:none;
+}
+.live-tag {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-family:'Inter',sans-serif;
+  font-weight:600;
+  font-size:11px;
+  letter-spacing:.32em;
+  margin-bottom:32px;
+  text-transform:uppercase;
+}
+.live-tag .dot {
+  width:6px; height:6px;
+  border-radius:50%;
+  background:#FF3EA5;
+  box-shadow: 0 0 12px #FF3EA5;
+  animation: dotPulse 1.6s ease-in-out infinite;
+}
+@keyframes dotPulse {
+  0%,100% { transform:scale(1); opacity:1; }
+  50% { transform:scale(1.5); opacity:.6; }
+}
+.live-tag .label { color:rgba(255,255,255,.8); }
+.live-tag .city { color:#FF3EA5; }
+
+.headline {
+  font-family:'Anton',sans-serif;
+  font-size:72px;
+  line-height:.95;
+  letter-spacing:.005em;
+  text-transform:uppercase;
+  color:#fff;
+  margin-bottom:28px;
+}
+.headline .word {
+  display:inline-block;
+  position:relative;
+  perspective:600px;
+  cursor:default;
+}
+.headline .word .face {
+  display:block;
+  transition: transform .6s cubic-bezier(.4, 0, .2, 1);
+  transform-style:preserve-3d;
+  backface-visibility:hidden;
+}
+.headline .word .face.alt {
+  position:absolute;
+  top:0; left:0;
+  width:100%;
+  transform: rotateX(90deg) translateY(-50%);
+  background:linear-gradient(90deg,#FF3EA5,#9D4EDD 50%, #4CD7D0);
+  -webkit-background-clip:text; background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.headline .word:hover .face.front {
+  transform: rotateX(-90deg) translateY(50%);
+}
+.headline .word:hover .face.alt {
+  transform: rotateX(0) translateY(0);
+}
+.headline .pink-words {
+  display:block;
+  color:#FF3EA5;
+}
+
+.subhead {
+  font-family:'Inter',sans-serif;
+  font-size:15px;
+  font-weight:300;
+  color:rgba(255,255,255,.65);
+  line-height:1.6;
+  margin-bottom:36px;
+  max-width:340px;
+}
+
+.cta-group {
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  margin-bottom:48px;
+}
+.btn-primary {
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:18px 28px;
+  background:linear-gradient(90deg,#FF3EA5 0%, #9D4EDD 100%);
+  background-size: 200% 100%;
+  background-position: 0% 0%;
+  border:none;
+  border-radius:999px;
+  font-family:'Inter',sans-serif;
+  font-weight:700;
+  font-size:13px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:#fff;
+  cursor:pointer;
+  transition: background-position .8s cubic-bezier(.4,0,.2,1), transform .3s, box-shadow .3s;
+  box-shadow:0 4px 20px rgba(255,62,165,.35);
+  overflow:hidden;
+}
+.btn-primary:hover {
+  background-position: 100% 0%;
+  transform:translateY(-2px);
+  box-shadow:0 10px 30px rgba(255,62,165,.5);
+}
+.btn-primary::before {
+  content:'';
+  position:absolute;
+  top:0; left:-100%;
+  width:100%; height:100%;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,.4), transparent);
+  transition: left .9s cubic-bezier(.4,0,.2,1);
+}
+.btn-primary:hover::before { left:100%; }
+.btn-primary .arrow {
+  font-size:16px;
+  transition: transform .3s;
+}
+.btn-primary:hover .arrow { transform:translateX(4px); }
+
+.btn-secondary {
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px 28px;
+  background:transparent;
+  border:1px solid rgba(255,255,255,.3);
+  border-radius:999px;
+  font-family:'Inter',sans-serif;
+  font-weight:600;
+  font-size:13px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:#fff;
+  cursor:pointer;
+  transition:all .3s;
+  overflow:hidden;
+}
+.btn-secondary::before {
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg,#FF3EA5,#4CD7D0);
+  opacity:0;
+  transition:opacity .3s;
+  z-index:-1;
+}
+.btn-secondary:hover {
+  border-color:transparent;
+}
+.btn-secondary:hover::before { opacity:1; }
+
+.countdown-wrap {
+  margin-top:auto;
+}
+.countdown-label {
+  font-family:'Inter',sans-serif;
+  font-size:10px;
+  font-weight:500;
+  letter-spacing:.32em;
+  color:rgba(255,255,255,.5);
+  margin-bottom:14px;
+  text-transform:uppercase;
+}
+.countdown-label::before {
+  content:'';
+  display:inline-block;
+  width:24px; height:1px;
+  background:#FF3EA5;
+  margin-right:10px;
+  vertical-align:middle;
+}
+.countdown {
+  display:flex;
+  gap:0;
+  align-items:baseline;
+}
+.cd-cell {
+  flex:1;
+  text-align:left;
+}
+.cd-cell .num {
+  font-family:'Anton',sans-serif;
+  font-size:54px;
+  line-height:1;
+  color:#fff;
+  letter-spacing:-.01em;
+}
+.cd-cell .lbl {
+  font-family:'Inter',sans-serif;
+  font-size:10px;
+  font-weight:500;
+  letter-spacing:.32em;
+  color:rgba(255,255,255,.4);
+  margin-top:6px;
+  text-transform:uppercase;
+}
+.cd-sep {
+  font-family:'Anton',sans-serif;
+  font-size:54px;
+  line-height:1;
+  color:rgba(255,255,255,.2);
+  padding:0 8px;
+}
+
+/* === CENTER COLUMN PLACEHOLDER (transparent — KV shows through) === */
+.hero-center {
+  position:relative;
+  z-index:1;
+}
+.kv-layer {
+  position:absolute;
+  inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  pointer-events:none;
+}
+.kv-bg {
+  z-index:1;
+  animation: bgBreath 14s ease-in-out infinite;
+  transform-origin:center;
+}
+@keyframes bgBreath {
+  0%,100% { transform:scale(1.02); filter:brightness(1) saturate(1.1); }
+  50%     { transform:scale(1.06); filter:brightness(1.08) saturate(1.25); }
+}
+.kv-color-wash {
+  position:absolute; inset:0; z-index:2; pointer-events:none;
+  background:
+    radial-gradient(ellipse at 50% 40%, transparent 0%, rgba(10,1,24,.3) 80%),
+    linear-gradient(180deg, rgba(157,78,221,.08) 0%, transparent 35%, rgba(255,62,165,.12) 100%);
+  mix-blend-mode:overlay;
+}
+.kv-neon {
+  z-index:10;
+  transform-origin:center center;
+  animation: neonBob 4.5s ease-in-out infinite;
+}
+@keyframes neonBob {
+  0%,100% { transform:translateY(0) scale(0.82); }
+  50%     { transform:translateY(-12px) scale(0.85); }
+}
+.kv-model {
+  z-index:20;
+  transform-origin:center center;
+  filter: drop-shadow(15px 25px 40px rgba(0,0,0,.5));
+  animation: modelFloat 5s ease-in-out infinite;
+}
+@keyframes modelFloat {
+  0%,100% { transform:translateY(0) scale(0.78); }
+  50%     { transform:translateY(-12px) scale(0.785); }
+}
+.kv-acc {
+  z-index:25;
+  transform-origin:center center;
+  filter: drop-shadow(0 8px 14px rgba(0,0,0,.4));
+  animation: accFloat 7s ease-in-out infinite;
+}
+@keyframes accFloat {
+  0%,100% { transform:translateY(0) scale(0.78) rotate(0); }
+  33%     { transform:translateY(-12px) scale(0.78) rotate(.3deg); }
+  66%     { transform:translateY(-6px) scale(0.78) rotate(-.3deg); }
+}
+
+/* corner overlay sparkles for visual richness */
+.kv-corner {
+  position:absolute;
+  z-index:50;
+  font-family:'Inter',sans-serif;
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.3em;
+  color:rgba(255,255,255,.5);
+  text-transform:uppercase;
+  pointer-events:none;
+}
+.kv-corner.tl { top:24px; left:24px; }
+.kv-corner.tl::before { content:'● '; color:#FF3EA5; }
+.kv-corner.br { bottom:24px; right:24px; }
+.kv-corner.br::after { content:' ●'; color:#4CD7D0; }
+
+
+/* === RIGHT COLUMN === */
+.hero-right {
+  position:relative;
+  z-index:3;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  padding-left:40px;
+}
+/* Soft fade overlay behind right content — dark at far right → transparent toward KV */
+.hero-right::before {
+  content:'';
+  position:absolute;
+  top:-40px; bottom:-60px;
+  right:-200px; left:-80px;
+  background: linear-gradient(-90deg,
+    rgba(8,2,18,.92) 0%,
+    rgba(8,2,18,.78) 30%,
+    rgba(8,2,18,.55) 55%,
+    rgba(8,2,18,.25) 75%,
+    transparent 100%
+  );
+  z-index:-1;
+  pointer-events:none;
+}
+.panel {
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:18px;
+  padding:24px;
+  transition: border-color .3s, background .3s;
+}
+.panel:hover {
+  border-color:rgba(255,255,255,.12);
+  background:rgba(255,255,255,.035);
+}
+.panel-title {
+  font-family:'Inter',sans-serif;
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.32em;
+  color:rgba(255,255,255,.45);
+  margin-bottom:22px;
+  text-transform:uppercase;
+}
+
+.step-list {
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+.step {
+  display:flex;
+  align-items:center;
+  gap:14px;
+  cursor:pointer;
+  transition: transform .25s;
+}
+.step:hover { transform:translateX(4px); }
+.step-num {
+  width:22px; height:22px;
+  border-radius:50%;
+  background:rgba(255,255,255,.05);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Inter',sans-serif;
+  font-weight:600;
+  font-size:11px;
+  color:rgba(255,255,255,.5);
+  flex-shrink:0;
+}
+
+.step-icon-wrap {
+  width:36px; height:36px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.15);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+  transition: border-color .3s, box-shadow .3s;
+}
+.step:hover .step-icon-wrap {
+  box-shadow: 0 0 18px rgba(255,62,165,.4);
+}
+.step-1:hover .step-icon-wrap { border-color:#FF3EA5; }
+.step-2:hover .step-icon-wrap { border-color:#4CD7D0; }
+.step-3:hover .step-icon-wrap { border-color:#FF3EA5; }
+.step-4:hover .step-icon-wrap { border-color:#4CD7D0; }
+.step-icon-wrap svg { width:18px; height:18px; }
+
+.step-text { flex:1; }
+.step-text .t {
+  font-family:'Inter',sans-serif;
+  font-weight:600;
+  font-size:12px;
+  letter-spacing:.12em;
+  color:#fff;
+  text-transform:uppercase;
+}
+.step-text .d {
+  font-family:'Inter',sans-serif;
+  font-size:11px;
+  color:rgba(255,255,255,.45);
+  margin-top:3px;
+  line-height:1.4;
+}
+
+.entry-status .status-row {
+  display:flex;
+  align-items:baseline;
+  gap:12px;
+  margin-bottom:14px;
+}
+.entry-status .pct {
+  font-family:'Anton',sans-serif;
+  font-size:48px;
+  color:#fff;
+  line-height:.9;
+}
+.entry-status .of {
+  font-family:'Inter',sans-serif;
+  font-weight:600;
+  font-size:11px;
+  letter-spacing:.25em;
+  color:rgba(255,255,255,.5);
+}
+.entry-status .progress {
+  height:3px;
+  background:rgba(255,255,255,.06);
+  border-radius:999px;
+  overflow:hidden;
+  position:relative;
+}
+.entry-status .progress::after {
+  content:'';
+  position:absolute;
+  left:0; top:0; bottom:0;
+  width:0%;
+  background:linear-gradient(90deg,#FF3EA5,#4CD7D0);
+  transition:width .8s ease;
+}
+.entry-status .footer-note {
+  margin-top:14px;
+  font-family:'Inter',sans-serif;
+  font-size:10px;
+  letter-spacing:.18em;
+  color:rgba(255,255,255,.35);
+  text-transform:uppercase;
+}
+.entry-status .footer-note::before { content:'⌬ '; color:#FF3EA5; opacity:.5; }
+
+.creators-card {
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:14px 20px;
+  background:rgba(255,255,255,.02);
+  border:1px solid rgba(255,255,255,.04);
+  border-radius:14px;
+}
+.avatars { display:flex; }
+.avatars .av {
+  width:30px; height:30px;
+  border-radius:50%;
+  border:2px solid #000;
+  margin-left:-8px;
+}
+.avatars .av:first-child { margin-left:0; }
+.av-1 { background:linear-gradient(135deg,#FF3EA5,#FFE45E); }
+.av-2 { background:linear-gradient(135deg,#9D4EDD,#FF3EA5); }
+.av-3 { background:linear-gradient(135deg,#4CD7D0,#9D4EDD); }
+.creators-text {
+  font-family:'Inter',sans-serif;
+  font-size:12px;
+  line-height:1.3;
+}
+.creators-text .num { font-weight:700; color:#fff; }
+.creators-text .sub { color:rgba(255,255,255,.45); margin-top:2px; }
+
+
+/* ============ TRACK STRIP (under hero) ============ */
+.track-strip {
+  margin:24px 48px 0;
+  padding:28px 32px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:rgba(255,255,255,.02);
+  border:1px solid rgba(255,255,255,.05);
+  border-radius:18px;
+}
+.track-strip-label {
+  font-family:'Inter',sans-serif;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.32em;
+  color:rgba(255,255,255,.6);
+  text-transform:uppercase;
+}
+.track-strip-label::before { content:'━━ '; color:#FF3EA5; opacity:.5; }
+.track-pills {
+  display:flex;
+  gap:10px;
+}
+.track-pill {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:11px 22px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.15);
+  font-family:'Inter',sans-serif;
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  cursor:pointer;
+  background:transparent;
+  color:#fff;
+  transition:all .35s cubic-bezier(.4,0,.2,1);
+  position:relative;
+  overflow:hidden;
+}
+.track-pill::before {
+  content:'';
+  position:absolute;
+  inset:0;
+  background: var(--glow);
+  opacity:0;
+  transition: opacity .35s;
+  z-index:-1;
+}
+.track-pill:hover {
+  border-color:transparent;
+  transform:translateY(-3px);
+  box-shadow: 0 8px 24px var(--glow-shadow);
+}
+.track-pill:hover::before { opacity:1; }
+.track-pill.t1 { --glow:linear-gradient(90deg,#FF3EA5,#FFE45E); --glow-shadow:rgba(255,62,165,.4); }
+.track-pill.t2 { --glow:linear-gradient(90deg,#4CD7D0,#1A9C95); --glow-shadow:rgba(76,215,208,.4); }
+.track-pill.t3 { --glow:linear-gradient(90deg,#9D4EDD,#FF3EA5); --glow-shadow:rgba(157,78,221,.4); }
+.track-pill.t4 { --glow:linear-gradient(90deg,#FFE45E,#FF7A00); --glow-shadow:rgba(255,228,94,.4); }
+.track-pill.t5 { --glow:linear-gradient(90deg,#FF3EA5,#9D4EDD); --glow-shadow:rgba(255,62,165,.4); }
+
+
+/* ============ ENTRY MOVES ============ */
+.entry-moves {
+  margin:48px 48px 0;
+}
+.entry-moves-head {
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  margin-bottom:24px;
+}
+.entry-moves-head .h {
+  font-family:'Anton',sans-serif;
+  font-size:34px;
+  letter-spacing:.005em;
+  color:#fff;
+  text-transform:uppercase;
+}
+.entry-moves-head .h .accent {
+  color:#FF3EA5;
+}
+.entry-moves-head .link {
+  font-family:'Inter',sans-serif;
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:.2em;
+  color:rgba(255,255,255,.7);
+  display:flex; align-items:center; gap:8px;
+  cursor:pointer;
+  text-transform:uppercase;
+  transition: color .3s;
+}
+.entry-moves-head .link:hover { color:#4CD7D0; }
+.entry-moves-head .link .arr { transition: transform .3s; }
+.entry-moves-head .link:hover .arr { transform:translateX(4px); }
+
+.cards-row {
+  display:grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap:14px;
+}
+.move-card {
+  position:relative;
+  aspect-ratio: 4/3;
+  border-radius:14px;
+  overflow:hidden;
+  background:linear-gradient(135deg,#1a0a2e 0%, #2d1b4e 50%, #1a0a2e 100%);
+  cursor:pointer;
+  transition: transform .4s cubic-bezier(.4,0,.2,1);
+}
+.move-card:hover { transform:translateY(-6px); }
+.move-card .photo {
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  transition: transform .8s cubic-bezier(.4,0,.2,1);
+}
+.move-card:hover .photo { transform: scale(1.08); }
+.move-card .photo-overlay {
+  position:absolute; inset:0;
+  background:
+    linear-gradient(180deg, transparent 30%, rgba(0,0,0,.85) 100%);
+  z-index:2;
+}
+.move-card .photo-placeholder {
+  position:absolute; inset:0;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,62,165,.35) 0%, transparent 60%),
+    radial-gradient(circle at 70% 70%, rgba(76,215,208,.3) 0%, transparent 55%);
+  display:flex; align-items:center; justify-content:center;
+  z-index:1;
+}
+.move-card .photo-placeholder::after {
+  content:'Drop your photo';
+  font-family:'Inter',sans-serif;
+  font-size:11px;
+  letter-spacing:.2em;
+  color:rgba(255,255,255,.3);
+  text-transform:uppercase;
+}
+.move-card .play-ico {
+  position:absolute;
+  top:14px; left:14px;
+  z-index:5;
+  width:32px; height:32px;
+  background:rgba(0,0,0,.6);
+  backdrop-filter:blur(8px);
+  border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+}
+.move-card .label {
+  position:absolute;
+  bottom:18px; left:18px;
+  z-index:5;
+  font-family:'Inter',sans-serif;
+  font-weight:700;
+  font-size:13px;
+  letter-spacing:.06em;
+  color:#fff;
+}
+.move-card .label .strong {
+  font-weight:800;
+}
+.mc-1 .label .strong { color:#FFE45E; }
+.mc-2 .label .strong { color:#4CD7D0; }
+.mc-3 .label .strong { color:#FF3EA5; }
+.mc-4 .label .strong { color:#FFE45E; }
+.mc-5 .label {
+  font-family:'Anton',sans-serif;
+  font-size:18px;
+  letter-spacing:.04em;
+  color:#FF3EA5;
+}
+
+/* card divider arrow between cards (decorative) */
+.cards-row {
+  position:relative;
+}
+.cards-row .move-card:not(:last-child)::after {
+  content:'›';
+  position:absolute;
+  top:50%;
+  right:-12px;
+  transform:translateY(-50%);
+  font-family:'Anton',sans-serif;
+  font-size:24px;
+  color:rgba(255,255,255,.4);
+  z-index:10;
+  pointer-events:none;
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="header reveal">
+    <div class="header-left">
+      <div class="tt-logo">
+        <svg viewBox="0 0 36 36">
+          <path d="M24 4 c.8 3 3.2 5.5 6.5 5.5 v5 c-2.5 0 -5 -.8 -6.5 -2.5 v11 c0 5 -4 9 -9 9 s-9 -4 -9 -9 s4 -9 9 -9 c.8 0 1.5 0 2.5 .8 v5 c-.8 -.8 -1.5 -.8 -2.5 -.8 c-2.5 0 -4 1.5 -4 4 s1.5 4 4 4 s4 -1.5 4 -4 v-19 z" fill="#fff"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <div class="row1">TikTok <span class="light">for Business</span></div>
+        <div class="row2">Fashion Fest</div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a href="#" class="active">Challenge</a>
+      <a href="#">Schedule</a>
+      <a href="#">Judges</a>
+      <a href="#">FAQ</a>
+      <a href="#">Past Shows</a>
+    </nav>
+
+    <div class="header-right">
+      <button class="btn-login">Log In</button>
+      <div class="menu-btn">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero">
+
+    <!-- LEFT COLUMN -->
+    <div class="hero-left">
+      <div class="live-tag reveal d1">
+        <span class="dot"></span>
+        <span class="label">Live in</span>
+        <span class="city">NYC</span>
+      </div>
+
+      <h1 class="headline reveal d2">
+        <span class="word"><span class="face front">Turn</span><span class="face alt">Be</span></span>
+        <span class="word"><span class="face front">Your</span><span class="face alt">Bold</span></span><br/>
+        <span class="word"><span class="face front">Style</span><span class="face alt">Vibe</span></span>
+        <span class="word"><span class="face front">Into</span><span class="face alt">Into</span></span>
+        <span class="word"><span class="face front">The</span><span class="face alt">The</span></span><br/>
+        <span class="pink-words">
+          <span class="word"><span class="face front">Next</span><span class="face alt">Loud</span></span>
+          <span class="word"><span class="face front">Runway</span><span class="face alt">Stage</span></span>
+        </span>
+        <span class="word"><span class="face front">Moment</span><span class="face alt">Story</span></span>
+      </h1>
+
+      <p class="subhead reveal d3">
+        Creator applications are open.<br/>
+        This is your moment.
+      </p>
+
+      <div class="cta-group reveal d4">
+        <button class="btn-primary">
+          <span>Start My Entry</span>
+          <span class="arrow">→</span>
+        </button>
+        <button class="btn-secondary">See Style Tracks</button>
+      </div>
+
+      <div class="countdown-wrap reveal d5">
+        <div class="countdown-label">Applications close soon</div>
+        <div class="countdown">
+          <div class="cd-cell"><div class="num">09</div><div class="lbl">Days</div></div>
+          <div class="cd-sep">:</div>
+          <div class="cd-cell"><div class="num">18</div><div class="lbl">Hrs</div></div>
+          <div class="cd-sep">:</div>
+          <div class="cd-cell"><div class="num">42</div><div class="lbl">Min</div></div>
+          <div class="cd-sep">:</div>
+          <div class="cd-cell"><div class="num">37</div><div class="lbl">Sec</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FULL-WIDTH KV BACKDROP -->
+    <div class="hero-bg-wrap reveal d1" id="kvFrame">
+      <div class="kv-inner" id="kvInner">
+        <img class="kv-layer kv-bg" src="assets/01_bg_scene.png" alt="Background scene"/>
+        <div class="kv-color-wash"></div>
+        <img class="kv-layer kv-neon" src="assets/02_neon_text.png" alt="Neon graffiti"/>
+        <img class="kv-layer kv-model" src="assets/03_model.png" alt="Model"/>
+        <img class="kv-layer kv-acc" src="assets/04_accessories.png" alt="Accessories"/>
+      </div>
+    </div>
+
+    <!-- CENTER PLACEHOLDER (kept for grid layout — empty, KV shows through) -->
+    <div class="hero-center"></div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="hero-right">
+      <div class="panel reveal d3">
+        <div class="panel-title">The Challenge</div>
+        <div class="step-list">
+
+          <div class="step step-1">
+            <div class="step-num">01</div>
+            <div class="step-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#FF3EA5" stroke-width="1.5"><path d="M12 16V4M12 4l-5 5M12 4l5 5M4 20h16"/></svg>
+            </div>
+            <div class="step-text">
+              <div class="t">Upload Look</div>
+              <div class="d">Show your original style.</div>
+            </div>
+          </div>
+
+          <div class="step step-2">
+            <div class="step-num">02</div>
+            <div class="step-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#4CD7D0" stroke-width="1.5"><path d="M16 4l4 4-4 4M4 12h16"/></svg>
+            </div>
+            <div class="step-text">
+              <div class="t">Pick Track</div>
+              <div class="d">Choose your runway path.</div>
+            </div>
+          </div>
+
+          <div class="step step-3">
+            <div class="step-num">03</div>
+            <div class="step-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#FF3EA5" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z" fill="#FF3EA5"/></svg>
+            </div>
+            <div class="step-text">
+              <div class="t">Submit Reel</div>
+              <div class="d">Own the stage.</div>
+            </div>
+          </div>
+
+          <div class="step step-4">
+            <div class="step-num">04</div>
+            <div class="step-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#4CD7D0" stroke-width="1.5"><path d="M12 2l3 7h7l-5.5 4.5 2 7-6.5-4.5-6.5 4.5 2-7L2 9h7z"/></svg>
+            </div>
+            <div class="step-text">
+              <div class="t">Get Reviewed</div>
+              <div class="d">Win a spot on the stage.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="panel entry-status reveal d4">
+        <div class="panel-title" style="color:#FF3EA5;">Entry Status</div>
+        <div class="status-row">
+          <span class="pct">0</span>
+          <span class="of">/ 4 Steps</span>
+        </div>
+        <div class="progress"></div>
+        <div class="footer-note">Complete all to submit</div>
+      </div>
+
+      <div class="creators-card reveal d5">
+        <div class="avatars">
+          <div class="av av-1"></div>
+          <div class="av av-2"></div>
+          <div class="av av-3"></div>
+        </div>
+        <div class="creators-text">
+          <div><span class="num">25K+ creators</span></div>
+          <div class="sub">Already in</div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ===================== TRACK STRIP ===================== -->
+  <section class="track-strip reveal d4">
+    <div class="track-strip-label">Choose Your Style Track</div>
+    <div class="track-pills">
+      <button class="track-pill t1"><span class="ico">✦</span><span>Beauty</span></button>
+      <button class="track-pill t2"><span class="ico">△</span><span>Streetwear</span></button>
+      <button class="track-pill t3"><span class="ico">◇</span><span>Luxe Remix</span></button>
+      <button class="track-pill t4"><span class="ico">⚡</span><span>Future Form</span></button>
+      <button class="track-pill t5"><span class="ico">✂</span><span>DIY Icon</span></button>
+    </div>
+  </section>
+
+  <!-- ===================== ENTRY MOVES ===================== -->
+  <section class="entry-moves reveal d5">
+    <div class="entry-moves-head">
+      <div class="h">How Your Entry <span class="accent">Moves</span></div>
+      <div class="link"><span>See full guidelines</span><span class="arr">→</span></div>
+    </div>
+
+    <div class="cards-row">
+
+      <div class="move-card mc-1">
+        <div class="photo-placeholder"></div>
+        <img class="photo" src="assets/move_01.jpg" alt="Upload" onerror="this.style.display='none'"/>
+        <div class="photo-overlay"></div>
+        <div class="play-ico"><svg width="14" height="14" viewBox="0 0 14 14" fill="#fff"><path d="M3 2l9 5-9 5V2z"/></svg></div>
+        <div class="label">1. <span class="strong">Upload</span> Your Look</div>
+      </div>
+
+      <div class="move-card mc-2">
+        <div class="photo-placeholder"></div>
+        <img class="photo" src="assets/move_02.jpg" alt="Pick track" onerror="this.style.display='none'"/>
+        <div class="photo-overlay"></div>
+        <div class="play-ico"><svg width="14" height="14" viewBox="0 0 14 14" fill="#fff"><path d="M3 2l9 5-9 5V2z"/></svg></div>
+        <div class="label">2. <span class="strong">Pick</span> Your Track</div>
+      </div>
+
+      <div class="move-card mc-3">
+        <div class="photo-placeholder"></div>
+        <img class="photo" src="assets/move_03.jpg" alt="Submit" onerror="this.style.display='none'"/>
+        <div class="photo-overlay"></div>
+        <div class="play-ico"><svg width="14" height="14" viewBox="0 0 14 14" fill="#fff"><path d="M3 2l9 5-9 5V2z"/></svg></div>
+        <div class="label">3. <span class="strong">Submit</span> Your Reel</div>
+      </div>
+
+      <div class="move-card mc-4">
+        <div class="photo-placeholder"></div>
+        <img class="photo" src="assets/move_04.jpg" alt="Get reviewed" onerror="this.style.display='none'"/>
+        <div class="photo-overlay"></div>
+        <div class="play-ico"><svg width="14" height="14" viewBox="0 0 14 14" fill="#fff"><path d="M3 2l9 5-9 5V2z"/></svg></div>
+        <div class="label">4. <span class="strong">Get</span> Reviewed</div>
+      </div>
+
+      <div class="move-card mc-5">
+        <div class="photo-placeholder"></div>
+        <img class="photo" src="assets/move_05.jpg" alt="Runway moment" onerror="this.style.display='none'"/>
+        <div class="photo-overlay"></div>
+        <div class="play-ico"><svg width="14" height="14" viewBox="0 0 14 14" fill="#fff"><path d="M3 2l9 5-9 5V2z"/></svg></div>
+        <div class="label">Runway Moment</div>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+<script>
+// KV mouse parallax — subtle inner-layer tilt that follows the cursor
+(function(){
+  const frame = document.getElementById('kvFrame');
+  const inner = document.getElementById('kvInner');
+  if (!frame || !inner) return;
+  let raf = null;
+  frame.addEventListener('mousemove', e => {
+    if (raf) return;
+    raf = requestAnimationFrame(() => {
+      const rect = frame.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      inner.style.transform = `translate(${x * -16}px, ${y * -16}px) scale(1.02)`;
+      raf = null;
+    });
+  });
+  frame.addEventListener('mouseleave', () => {
+    inner.style.transform = 'translate(0,0) scale(1)';
+  });
+})();
+</script>
+
+</body>
+</html>
